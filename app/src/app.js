@@ -3,8 +3,6 @@ const path = require("path");
 const app = express();
 const mysql = require('mysql');
 
-const db = require('./database/db');
-
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
@@ -18,7 +16,7 @@ const config = {
 app.get('/', async (req, res) => {
     const connection = mysql.createConnection(config);
     
-    db.query('SELECT * FROM usuarios;', function (err, result, fields) {
+    connection.query('SELECT * FROM usuarios;', function (err, result, fields) {
         if(err) {
             connection.end();
             return res.send('Falha no banco de dados');
