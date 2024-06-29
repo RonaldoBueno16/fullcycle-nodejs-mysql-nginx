@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:5.7
+    command: --innodb-use-native-aio=0
+    tty: true
+    container_name: db
+    environment:
+      - MYSQL_DATABASE=fullcycle
+      - MYSQL_ROOT_PASSWORD=fullcycle
+      - MYSQL_USER=fullcycle
+      - MYSQL_PASSWORD=fullcycle
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d
+    networks:
+      - fullcycle-network
+
+  app:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    container_name: nodejs-usuarios
+    environment:
+      - DB_HOST=fullcycle
+      - DB_USER=fullcycle
+      - DB_PASSWORD=fullcycle
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    networks:
+      - fullcycle-network
+
+networks:
+  fullcycle-network:
+    driver: bridge
