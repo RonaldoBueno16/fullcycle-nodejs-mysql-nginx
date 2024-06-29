@@ -16,7 +16,7 @@ services:
     networks:
       - fullcycle-network
 
-  app:
+  nodejs-usuarios:
     build:
       context: ./app
       dockerfile: Dockerfile
@@ -25,12 +25,22 @@ services:
       - DB_HOST=fullcycle
       - DB_USER=fullcycle
       - DB_PASSWORD=fullcycle
-    ports:
-      - "8080:8080"
     depends_on:
       - db
     networks:
       - fullcycle-network
+
+  nginx:
+    build: 
+      context: ./nginx
+      dockerfile: Dockerfile
+    container_name: nginx
+    ports:
+      - "80:80"
+    networks:
+      - fullcycle-network
+    depends_on:
+      - nodejs-usuarios
 
 networks:
   fullcycle-network:
