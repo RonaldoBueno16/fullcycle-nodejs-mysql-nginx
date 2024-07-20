@@ -22,9 +22,10 @@ services:
       dockerfile: Dockerfile
     container_name: nodejs-usuarios
     environment:
-      - DB_HOST=fullcycle
+      - DB_HOST=db
       - DB_USER=fullcycle
       - DB_PASSWORD=fullcycle
+      - DB_DATABASE=fullcycle
     depends_on:
       - db
     networks:
