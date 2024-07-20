@@ -1,4 +1,3 @@
-<!-- views/retorno.ejs -->
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -13,5 +12,8 @@
             <li><%= usuario.nome %></li>
         <% }); %>
     </ul>
+    <form action="/form" method="get">
+        <button type="submit">Adicionar Usuário</button>
+    </form>
 </body>
 </html>

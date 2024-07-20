@@ -13,6 +13,8 @@ const config = {
     database: 'fullcycle'
 };
 
+app.use(express.urlencoded({ extended: true }));
+
 app.get('/', async (req, res) => {
     const connection = mysql.createConnection(config);
     
@@ -25,7 +27,27 @@ app.get('/', async (req, res) => {
         connection.end();
         return res.render('retorno', { usuarios: result });
     });
+});
 
+app.get('/form', (req, res) => {
+    res.render('form');
+});
+
+app.post('/add-user', (req, res) => {
+    console.log(req);
+    
+    const { nome } = req.body;
+    const connection = mysql.createConnection(config);
+    
+    connection.query('INSERT INTO usuarios (nome) VALUES (?)', [nome], function (err, result) {
+        if(err) {
+            connection.end();
+            return res.send('Erro ao inserir dados no banco');
+        }
+
+        connection.end();
+        res.redirect('/');
+    });
 });
 
 app.listen(8080);
