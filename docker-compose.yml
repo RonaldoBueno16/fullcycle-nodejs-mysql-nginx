@@ -36,7 +36,7 @@ services:
       dockerfile: Dockerfile
     container_name: nginx
     ports:
-      - "80:80"
+      - "8080:80"
     networks:
       - fullcycle-network
     depends_on:

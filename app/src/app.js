@@ -18,7 +18,10 @@ app.use(express.urlencoded({ extended: true }));
 app.get('/', async (req, res) => {
     const connection = mysql.createConnection(config);
     
-    connection.query('SELECT * FROM usuarios;', function (err, result, fields) {
+    connection.query('SELECT * FROM people;', function (err, result, fields) {
+        console.log(err);
+        console.log(result);
+        console.log(fields);
         if(err) {
             connection.end();
             return res.send('Falha no banco de dados');
@@ -39,7 +42,7 @@ app.post('/add-user', (req, res) => {
     const { nome } = req.body;
     const connection = mysql.createConnection(config);
     
-    connection.query('INSERT INTO usuarios (nome) VALUES (?)', [nome], function (err, result) {
+    connection.query('INSERT INTO people (nome) VALUES (?)', [nome], function (err, result) {
         if(err) {
             connection.end();
             return res.send('Erro ao inserir dados no banco');
