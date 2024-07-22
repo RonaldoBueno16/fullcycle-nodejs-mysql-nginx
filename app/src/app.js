@@ -13,7 +13,6 @@ const config = {
     database: process.env.DB_DATABASE
 };
 
-
 app.use(express.urlencoded({ extended: true }));
 
 app.get('/', async (req, res) => {
