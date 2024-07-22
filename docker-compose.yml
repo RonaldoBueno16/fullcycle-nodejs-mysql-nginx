@@ -16,11 +16,11 @@ services:
     networks:
       - fullcycle-network
 
-  nodejs-usuarios:
+  app:
     build:
       context: ./app
       dockerfile: Dockerfile
-    container_name: nodejs-usuarios
+    container_name: app
     environment:
       - DB_HOST=db
       - DB_USER=fullcycle
@@ -41,7 +41,7 @@ services:
     networks:
       - fullcycle-network
     depends_on:
-      - nodejs-usuarios
+      - app
 
 networks:
   fullcycle-network:
