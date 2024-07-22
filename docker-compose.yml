@@ -12,16 +12,20 @@ services:
       - MYSQL_USER=fullcycle
       - MYSQL_PASSWORD=fullcycle
     volumes:
-      - ./db:/docker-entrypoint-initdb.d
+      - ./db/struct.sql:/docker-entrypoint-initdb.d/struct.sql
     networks:
       - fullcycle-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p$$MYSQL_ROOT_PASSWORD"]
+      interval: 5s
+      timeout: 10s
+      retries: 5
 
   app:
     build:
       context: ./app
       dockerfile: Dockerfile
     container_name: app
-    entrypoint: dockerize -wait tcp://db:3306 docker-entrypoint.sh
     environment:
       - DB_HOST=db
       - DB_USER=fullcycle
@@ -30,7 +34,8 @@ services:
     volumes:
       - ./app:/app/src
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     networks:
       - fullcycle-network
 
