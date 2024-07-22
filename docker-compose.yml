@@ -21,6 +21,7 @@ services:
       context: ./app
       dockerfile: Dockerfile
     container_name: app
+    entrypoint: dockerize -wait tcp://db:3306 docker-entrypoint.sh
     environment:
       - DB_HOST=db
       - DB_USER=fullcycle
