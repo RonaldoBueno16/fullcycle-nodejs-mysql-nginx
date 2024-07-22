@@ -12,6 +12,7 @@ services:
       - MYSQL_USER=fullcycle
       - MYSQL_PASSWORD=fullcycle
     volumes:
+      - mysql:/var/lib/mysql
       - ./db/struct.sql:/docker-entrypoint-initdb.d/struct.sql
     networks:
       - fullcycle-network
@@ -54,3 +55,7 @@ services:
 networks:
   fullcycle-network:
     driver: bridge
+
+volumes:
+  mysql:
+    driver: local
