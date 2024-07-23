@@ -33,7 +33,7 @@ services:
       - DB_PASSWORD=fullcycle
       - DB_DATABASE=fullcycle
     volumes:
-      - ./app:/usr/app/src
+      - ./app:/app/src
     depends_on:
       db:
         condition: service_healthy
