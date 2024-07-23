@@ -27,6 +27,7 @@ services:
       context: ./app
       dockerfile: Dockerfile
     container_name: app
+    entrypoint: sh -c "npm install && node ./src/app.js"
     environment:
       - DB_HOST=db
       - DB_USER=fullcycle
