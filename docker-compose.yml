@@ -17,7 +17,7 @@ services:
     networks:
       - fullcycle-network
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p$$MYSQL_ROOT_PASSWORD"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "$$MYSQL_USER", "-p$$MYSQL_ROOT_PASSWORD"]
       interval: 5s
       timeout: 10s
       retries: 5
@@ -33,7 +33,7 @@ services:
       - DB_PASSWORD=fullcycle
       - DB_DATABASE=fullcycle
     volumes:
-      - ./app:/app/src
+      - ./app:/usr/app/src
     depends_on:
       db:
         condition: service_healthy
